@@ -138,9 +138,10 @@ class Router extends RouteCollector implements
      */
     protected function prepRoutes(ServerRequestInterface $request): void
     {
-	if ($this->preparedRoutes) {
-	    return;
-	}
+        if ($this->preparedRoutes) {
+            return;
+        }
+
         $this->processGroups($request);
         $this->buildNameIndex();
 
