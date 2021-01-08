@@ -46,6 +46,11 @@ class Router extends RouteCollector implements
     ];
 
     /**
+     * @var boolean
+     */
+    protected $preparedRoutes = false;
+
+    /**
      * Constructor
      *
      * @param RouteParser $parser
@@ -133,6 +138,9 @@ class Router extends RouteCollector implements
      */
     protected function prepRoutes(ServerRequestInterface $request): void
     {
+	if ($this->preparedRoutes) {
+	    return;
+	}
         $this->processGroups($request);
         $this->buildNameIndex();
 
@@ -164,6 +172,8 @@ class Router extends RouteCollector implements
 
             $this->addRoute($route->getMethod(), $this->parseRoutePath($route->getPath()), $route);
         }
+
+	$this->preparedRoutes = true;
     }
 
     /**
